@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+:root {
+  --font-ios: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro Rounded", "Inter", system-ui, sans-serif;
+  --glass-radius: clamp(20px, 2.4vw, 28px);
+  --card-alpha-start: rgba(14, 22, 42, 0.24);
+  --card-alpha-mid: rgba(14, 22, 42, 0.14);
+  --card-alpha-end: rgba(10, 16, 32, 0.26);
+  --card-blur: 20px;
+}
+
+[data-glass-opacity="clear"] {
+  --card-alpha-start: rgba(255, 255, 255, 0.12);
+  --card-alpha-mid: rgba(255, 255, 255, 0.05);
+  --card-alpha-end: rgba(12, 18, 36, 0.14);
+  --card-blur: 14px;
+}
+
+[data-glass-opacity="balanced"] {
+  --card-alpha-start: rgba(14, 22, 42, 0.24);
+  --card-alpha-mid: rgba(14, 22, 42, 0.14);
+  --card-alpha-end: rgba(10, 16, 32, 0.26);
+  --card-blur: 20px;
+}
+
+[data-glass-opacity="tinted"] {
+  --card-alpha-start: rgba(10, 16, 34, 0.48);
+  --card-alpha-mid: rgba(10, 16, 34, 0.38);
+  --card-alpha-end: rgba(8, 12, 26, 0.54);
+  --card-blur: 28px;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #040712;
+    color: #ffffff;
+    font-family: var(--font-ios);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+
+  input,
+  textarea {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  ::selection {
+    background: rgba(56, 189, 248, 0.3);
+    color: #ffffff;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* iOS 27 Liquid Glass Surface */
+.liquid-glass-card {
+  position: relative;
+  border-radius: 5.6cqh;
+  background: linear-gradient(
+    145deg,
+    var(--card-alpha-start) 0%,
+    var(--card-alpha-mid) 52%,
+    var(--card-alpha-end) 100%
+  );
+  backdrop-filter: blur(var(--card-blur)) saturate(165%);
+  -webkit-backdrop-filter: blur(var(--card-blur)) saturate(165%);
+  box-shadow:
+    0 20px 44px -12px rgba(2, 6, 20, 0.50),
+    inset 0 1px 1px rgba(255, 255, 255, 0.38);
+}
+
+.liquid-glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    rgba(255, 255, 255, 0.16) 45%,
+    rgba(255, 255, 255, 0.10) 75%,
+    rgba(255, 255, 255, 0.34) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Elevated Liquid Glass (Modals, Chat Drawer, Toast Alerts) */
+.liquid-glass-modal {
+  position: relative;
+  background: linear-gradient(
+    155deg,
+    rgba(24, 30, 50, 0.84) 0%,
+    rgba(12, 16, 30, 0.90) 100%
+  );
+  backdrop-filter: blur(44px) saturate(200%);
+  -webkit-backdrop-filter: blur(44px) saturate(200%);
+  box-shadow:
+    0 32px 64px -16px rgba(0, 0, 0, 0.78),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.28);
+}
+
+.liquid-glass-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.10) 55%,
+    rgba(255, 255, 255, 0.20) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Circular Glass Icon Button */
+.liquid-circle-btn {
+  position: relative;
+  border-radius: 9999px;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 10px 24px -6px rgba(2, 8, 24, 0.40),
+    inset 0 1px 1px rgba(255, 255, 255, 0.42);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.liquid-circle-btn:hover {
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+}
+
+/* Pill Glass Button ("BẮT ĐẦU") */
+.liquid-pill-btn {
+  position: relative;
+  border-radius: 9999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 10px 24px -6px rgba(2, 8, 24, 0.40),
+    inset 0 1px 1px rgba(255, 255, 255, 0.42);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.liquid-pill-btn:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+}
+
+/* Active Glass Glow Variants */
+.liquid-btn-active-cyan {
+  background: linear-gradient(
+    150deg,
+    rgba(56, 189, 248, 0.34) 0%,
+    rgba(59, 130, 246, 0.20) 100%
+  );
+  border-color: rgba(125, 211, 252, 0.62);
+  box-shadow:
+    0 10px 26px -4px rgba(56, 189, 248, 0.42),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.liquid-btn-active-rose {
+  background: linear-gradient(
+    150deg,
+    rgba(244, 63, 94, 0.36) 0%,
+    rgba(225, 29, 72, 0.20) 100%
+  );
+  border-color: rgba(253, 164, 175, 0.62);
+  box-shadow:
+    0 10px 26px -4px rgba(244, 63, 94, 0.42),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.liquid-btn-active-amber {
+  background: linear-gradient(
+    150deg,
+    rgba(251, 191, 36, 0.34) 0%,
+    rgba(245, 158, 11, 0.18) 100%
+  );
+  border-color: rgba(253, 230, 138, 0.60);
+  box-shadow:
+    0 10px 26px -4px rgba(251, 191, 36, 0.38),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.liquid-btn-active-indigo {
+  background: linear-gradient(
+    150deg,
+    rgba(167, 139, 250, 0.34) 0%,
+    rgba(99, 102, 241, 0.20) 100%
+  );
+  border-color: rgba(196, 181, 253, 0.62);
+  box-shadow:
+    0 10px 26px -4px rgba(139, 92, 246, 0.40),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+/* Apple Intelligence / Siri Iridescent Ring for Floating AI Orb */
+.ai-iridescent-orb {
+  position: relative;
+  border-radius: 9999px;
+  padding: 2.5px;
+  background: conic-gradient(
+    from 135deg,
+    #38bdf8,
+    #818cf8,
+    #c084fc,
+    #f472b6,
+    #fb7185,
+    #38bdf8
+  );
+  box-shadow:
+    0 12px 30px -4px rgba(99, 102, 241, 0.48),
+    0 6px 18px -4px rgba(236, 72, 153, 0.36);
+}
+
+.ai-iridescent-orb-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 30% 25%,
+    rgba(42, 48, 72, 0.92),
+    rgba(12, 16, 30, 0.96)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.28);
+}
+
+/* Custom Thin Glass Scrollbar */
+.glass-scroll {
+  touch-action: pan-y;
+}
+
+.glass-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.glass-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.glass-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.20);
+  border-radius: 9999px;
+}
+
+.glass-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
